@@ -2,207 +2,213 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Side Street Lounge — Client Onboarding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:    #0a0a0a;
-      --black2:   #111111;
-      --card:     #161616;
-      --border:   #2a2a2a;
-      --gold:     #c9a96e;
-      --gold-dim: #8a6f3e;
-      --cream:    #f5f0e8;
-      --muted:    #5a5a5a;
-      --text:     #d0cac0;
-      --white:    #ffffff;
+      --black:      #080808;
+      --black2:     #0f0f0f;
+      --card:       #141414;
+      --card2:      #1a1a1a;
+      --border:     #252525;
+      --border2:    #333333;
+      --gold:       #c9a96e;
+      --gold-dim:   #8a6f3e;
+      --gold-bg:    rgba(201,169,110,0.07);
+      --text:       #c8c2b8;
+      --muted:      #585858;
+      --muted2:     #7a7a7a;
+      --white:      #f5f1eb;
+      --header-h:   60px;
+      --progress-h: 56px;
+      --offset:     calc(var(--header-h) + var(--progress-h));
     }
 
-    html, body {
+    html { scroll-behavior: smooth; }
+    body {
       background: var(--black);
       color: var(--text);
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 300;
-      min-height: 100vh;
-      letter-spacing: 0.02em;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Header ─────────────────────────── */
+    /* ─── HEADER ──────────────────────────────── */
     .site-header {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 200;
+      height: var(--header-h);
       background: var(--black);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
+      padding: 0 24px;
     }
-    .site-header .logo {
+    .logo-wrap { display: flex; flex-direction: column; gap: 2px; }
+    .logo-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 17px;
-      font-weight: 400;
-      letter-spacing: 0.22em;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
       color: var(--gold);
+      line-height: 1;
     }
-    .site-header .logo span {
-      color: var(--muted);
-      font-weight: 300;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      display: block;
-      margin-top: 1px;
-    }
-    .header-badge {
-      font-size: 11px;
-      letter-spacing: 0.18em;
+    .logo-sub {
+      font-size: 9px;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--muted);
-    }
-    .header-badge strong {
-      color: var(--gold-dim);
-      font-weight: 500;
-    }
-
-    /* ── Progress bar ────────────────────── */
-    .progress-wrap {
-      position: fixed;
-      top: 64px; left: 0; right: 0;
-      z-index: 99;
-      background: var(--black2);
-      border-bottom: 1px solid var(--border);
-      padding: 0 48px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      gap: 0;
-      overflow-x: auto;
-    }
-    .step-tab {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      padding: 0 8px;
-      cursor: pointer;
-      position: relative;
-      transition: opacity .2s;
-      min-width: 80px;
-    }
-    .step-tab::after {
-      content: '';
-      position: absolute;
-      right: 0; top: 20%; bottom: 20%;
-      width: 1px;
-      background: var(--border);
-    }
-    .step-tab:last-child::after { display: none; }
-    .step-tab .num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      font-weight: 300;
       color: var(--muted);
       line-height: 1;
-      transition: color .2s;
     }
-    .step-tab .label {
-      font-size: 9.5px;
-      letter-spacing: 0.14em;
+    .header-right {
+      font-size: 10px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--muted);
-      transition: color .2s;
-      white-space: nowrap;
+      text-align: right;
     }
-    .step-tab.active .num,
-    .step-tab.active .label { color: var(--gold); }
-    .step-tab.done .num,
-    .step-tab.done .label { color: var(--gold-dim); }
-    .step-tab.active::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
+    .header-right strong { color: var(--gold-dim); font-weight: 500; display: block; }
+
+    /* ─── PROGRESS ────────────────────────────── */
+    .progress-wrap {
+      position: fixed;
+      top: var(--header-h);
+      left: 0; right: 0;
+      z-index: 199;
+      height: var(--progress-h);
+      background: var(--black2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 14px;
+    }
+    .progress-info {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .progress-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      color: var(--white);
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .progress-count {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .progress-bar-wrap {
+      flex: 1;
       height: 2px;
+      background: var(--border);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
       background: var(--gold);
+      border-radius: 1px;
+      transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .progress-pct {
+      flex-shrink: 0;
+      font-size: 11px;
+      color: var(--gold-dim);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
     }
 
-    /* ── Layout ──────────────────────────── */
+    /* ─── PAGE ────────────────────────────────── */
     .page {
-      padding-top: 140px;
+      padding-top: calc(var(--offset) + 40px);
       padding-bottom: 80px;
       min-height: 100vh;
     }
     .container {
-      max-width: 720px;
+      max-width: 660px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 20px;
     }
 
-    /* ── Steps ───────────────────────────── */
+    /* ─── STEPS ──────────────────────────────── */
     .step { display: none; }
-    .step.active { display: block; }
-
-    /* ── Step header ─────────────────────── */
-    .step-header {
-      margin-bottom: 48px;
+    .step.active { display: block; animation: fadeUp .3s ease; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* ─── STEP HEADER ────────────────────────── */
+    .step-header { margin-bottom: 36px; }
     .step-eyebrow {
-      font-size: 10px;
+      font-size: 9.5px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--gold-dim);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .step-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(32px, 5vw, 46px);
+      font-size: clamp(30px, 6vw, 44px);
       font-weight: 300;
-      line-height: 1.1;
       color: var(--white);
+      line-height: 1.1;
       letter-spacing: -0.01em;
     }
-    .step-title em {
-      font-style: italic;
-      color: var(--gold);
-    }
+    .step-title em { font-style: italic; color: var(--gold); }
     .step-subtitle {
-      margin-top: 14px;
+      margin-top: 12px;
       font-size: 13px;
+      color: var(--muted2);
       line-height: 1.7;
-      color: var(--muted);
-      max-width: 520px;
+      max-width: 500px;
     }
-    .divider {
-      width: 40px;
+    .ornament-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .ornament-line::before,
+    .ornament-line::after {
+      content: '';
+      flex: 1;
       height: 1px;
-      background: var(--gold-dim);
-      margin: 20px 0 0;
+      background: var(--border);
+    }
+    .ornament-line span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      color: var(--gold-dim);
     }
 
-    /* ── Form fields ─────────────────────── */
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .field label {
-      font-size: 10.5px;
-      letter-spacing: 0.2em;
+    /* ─── FIELD GROUP ────────────────────────── */
+    .field-group { display: flex; flex-direction: column; gap: 24px; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+
+    .field > label,
+    .field-label {
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--gold-dim);
       font-weight: 500;
@@ -210,1007 +216,1142 @@
     .field .hint {
       font-size: 12px;
       color: var(--muted);
-      line-height: 1.55;
-      margin-top: -3px;
+      line-height: 1.6;
+      margin-top: -2px;
     }
-    .field input,
-    .field textarea,
-    .field select {
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="url"],
+    input[type="number"],
+    textarea,
+    select {
       background: var(--card);
       border: 1px solid var(--border);
+      border-radius: 0;
       color: var(--white);
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       font-weight: 300;
-      padding: 14px 18px;
-      border-radius: 0;
-      outline: none;
-      transition: border-color .2s, background .2s;
+      line-height: 1.5;
+      padding: 13px 16px;
       width: 100%;
+      outline: none;
       -webkit-appearance: none;
+      appearance: none;
+      transition: border-color .2s, background .2s;
     }
-    .field input::placeholder,
-    .field textarea::placeholder { color: var(--muted); }
-    .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    input:focus, textarea:focus, select:focus {
       border-color: var(--gold-dim);
-      background: #1c1c1c;
+      background: var(--card2);
     }
-    .field textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
-    .field select option { background: var(--card); }
+    textarea { resize: vertical; min-height: 96px; }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath fill='%23585858' d='M6 7L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    select option { background: var(--card2); color: var(--white); }
 
-    .row-2 {
+    /* ─── GRID LAYOUTS ───────────────────────── */
+    .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 16px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 540px) {
+      .grid-2 { grid-template-columns: 1fr; gap: 20px; }
+      .grid-3 { grid-template-columns: 1fr; gap: 20px; }
     }
 
-    /* ── Checkbox / radio group ──────────── */
-    .check-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    /* ─── SECTION CARD ───────────────────────── */
+    .section-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 22px 20px;
     }
+    .section-block-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--gold);
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.04em;
+    }
+    .section-block .field-group { gap: 18px; }
+
+    /* ─── CHECKBOX / RADIO LIST ──────────────── */
+    .check-list { display: flex; flex-direction: column; gap: 8px; }
     .check-item {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      cursor: pointer;
-      padding: 12px 16px;
+      padding: 13px 16px;
       border: 1px solid var(--border);
       background: var(--card);
+      cursor: pointer;
       transition: border-color .18s, background .18s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .check-item:hover { border-color: var(--gold-dim); }
+    .check-item:hover,
+    .check-item:has(input:checked) {
+      border-color: var(--gold-dim);
+      background: var(--gold-bg);
+    }
     .check-item input[type="checkbox"],
     .check-item input[type="radio"] {
-      width: 16px; height: 16px;
-      min-width: 16px;
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      margin-top: 1px;
       accent-color: var(--gold);
       cursor: pointer;
-      margin-top: 1px;
+      background: transparent;
+      border: none;
+      padding: 0;
     }
-    .check-item .check-label {
-      font-size: 13.5px;
-      line-height: 1.5;
-      color: var(--text);
-    }
-    .check-item .check-label strong {
-      display: block;
+    .check-text { display: flex; flex-direction: column; gap: 2px; }
+    .check-title {
+      font-size: 14px;
       color: var(--white);
       font-weight: 400;
-      font-size: 14px;
+      line-height: 1.3;
     }
-
-    /* ── Scale row ───────────────────────── */
-    .scale-row {
-      display: flex;
-      gap: 8px;
-    }
-    .scale-btn {
-      flex: 1;
-      padding: 10px 0;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--muted);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
-      cursor: pointer;
-      text-align: center;
-      transition: all .18s;
-    }
-    .scale-btn:hover,
-    .scale-btn.selected {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: #1c1600;
-    }
-    .scale-ends {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5px;
-      font-size: 10.5px;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-    }
-
-    /* ── Card-select ─────────────────────── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .card-select {
-      padding: 18px 20px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      cursor: pointer;
-      transition: all .18s;
-      position: relative;
-    }
-    .card-select:hover { border-color: var(--gold-dim); }
-    .card-select input { position: absolute; opacity: 0; }
-    .card-select.selected { border-color: var(--gold); background: #1c1600; }
-    .card-select .cs-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 17px;
-      color: var(--white);
-      margin-bottom: 4px;
-    }
-    .card-select .cs-desc {
+    .check-desc {
       font-size: 12px;
       color: var(--muted);
       line-height: 1.5;
     }
 
-    /* ── Navigation ──────────────────────── */
+    /* ─── CARD SELECTORS ─────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 420px) {
+      .card-grid { grid-template-columns: 1fr; }
+    }
+    .card-option {
+      position: relative;
+      padding: 16px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      cursor: pointer;
+      transition: all .18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .card-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .card-option:hover,
+    .card-option.on {
+      border-color: var(--gold);
+      background: var(--gold-bg);
+    }
+    .card-option .co-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--gold-dim);
+      margin-bottom: 6px;
+      line-height: 1;
+    }
+    .card-option .co-title {
+      font-size: 13px;
+      color: var(--white);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .card-option .co-desc {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── SCALE ──────────────────────────────── */
+    .scale-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .scale-row { display: flex; gap: 6px; }
+    .scale-btn {
+      flex: 1;
+      padding: 12px 4px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      cursor: pointer;
+      text-align: center;
+      transition: all .18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .scale-btn:hover,
+    .scale-btn.on {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-bg);
+    }
+    .scale-ends {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ─── DIVIDER ─────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 4px 0;
+    }
+
+    /* ─── INLINE NOTE ────────────────────────── */
+    .inline-note {
+      padding: 12px 16px;
+      background: var(--gold-bg);
+      border-left: 2px solid var(--gold-dim);
+      font-size: 12px;
+      color: var(--muted2);
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ────────────────────────────────── */
     .nav-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 56px;
-      padding-top: 32px;
+      gap: 12px;
+      margin-top: 48px;
+      padding-top: 28px;
       border-top: 1px solid var(--border);
     }
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 8px;
       font-family: 'Inter', sans-serif;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      padding: 14px 32px;
+      padding: 14px 24px;
       cursor: pointer;
       border: none;
       transition: all .2s;
       text-decoration: none;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
     }
     .btn-ghost {
       background: transparent;
       color: var(--muted);
       border: 1px solid var(--border);
     }
-    .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
-    .btn-primary {
-      background: var(--gold);
-      color: var(--black);
-    }
+    .btn-ghost:hover { border-color: var(--muted2); color: var(--text); }
+    .btn-primary { background: var(--gold); color: var(--black); }
     .btn-primary:hover { background: #d4b47a; }
-    .btn-submit {
-      background: var(--gold);
-      color: var(--black);
-      font-size: 11px;
-    }
-    .step-counter {
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-    }
-    .step-counter span { color: var(--gold-dim); }
+    .btn-submit { background: var(--gold); color: var(--black); }
+    .btn-submit:hover { background: #d4b47a; }
+    .nav-spacer { flex: 1; }
 
-    /* ── Thank you ───────────────────────── */
+    /* ─── THANK YOU ──────────────────────────── */
     #thankyou {
       display: none;
       text-align: center;
-      padding: 80px 32px;
+      padding: 60px 20px 80px;
     }
-    #thankyou.active { display: block; }
-    .ty-ornament {
+    #thankyou.active { display: block; animation: fadeUp .4s ease; }
+    .ty-glyph {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 72px;
+      font-size: 64px;
       color: var(--gold);
       line-height: 1;
       margin-bottom: 24px;
     }
     .ty-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
+      font-size: 42px;
       font-weight: 300;
       color: var(--white);
       margin-bottom: 16px;
     }
     .ty-body {
       font-size: 14px;
-      color: var(--muted);
+      color: var(--muted2);
       line-height: 1.8;
-      max-width: 460px;
-      margin: 0 auto;
+      max-width: 440px;
+      margin: 0 auto 40px;
     }
     .ty-brand {
-      margin-top: 48px;
-      font-size: 10px;
-      letter-spacing: 0.22em;
+      font-size: 9.5px;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
       color: var(--gold-dim);
     }
 
-    /* ── Section card ────────────────────── */
-    .section-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 32px;
-      margin-bottom: 24px;
-    }
-    .section-card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      color: var(--gold);
-      font-weight: 400;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    @media (max-width: 600px) {
-      .site-header { padding: 0 20px; }
-      .progress-wrap { padding: 0 16px; }
-      .container { padding: 0 20px; }
-      .row-2 { grid-template-columns: 1fr; }
-      .card-grid { grid-template-columns: 1fr; }
-      .step-tab .label { font-size: 8px; }
+    /* ─── MOBILE TWEAKS ──────────────────────── */
+    @media (max-width: 400px) {
+      .site-header { padding: 0 16px; }
+      .progress-wrap { padding: 0 16px; gap: 10px; }
+      .container { padding: 0 16px; }
+      .btn { padding: 13px 18px; font-size: 10px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Header -->
+<!-- ── HEADER ──────────────────────────────── -->
 <header class="site-header">
-  <div class="logo">
-    Side Street Lounge
-    <span>Social Media Onboarding</span>
+  <div class="logo-wrap">
+    <div class="logo-name">Side Street Lounge</div>
+    <div class="logo-sub">Social Media Onboarding</div>
   </div>
-  <div class="header-badge">Prepared by <strong>Revyn Marketing</strong></div>
+  <div class="header-right">
+    <strong>Revyn Marketing</strong>
+    Social Strategy
+  </div>
 </header>
 
-<!-- Progress Tabs -->
-<nav class="progress-wrap" id="progressBar">
-  <div class="step-tab active" data-step="1">
-    <span class="num">01</span>
-    <span class="label">Your Business</span>
+<!-- ── PROGRESS ────────────────────────────── -->
+<div class="progress-wrap">
+  <div class="progress-info">
+    <div class="progress-label" id="stepLabel">Your Business</div>
+    <div class="progress-count" id="stepCount">Step 1 of 7</div>
   </div>
-  <div class="step-tab" data-step="2">
-    <span class="num">02</span>
-    <span class="label">Brand Identity</span>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:14.28%"></div>
   </div>
-  <div class="step-tab" data-step="3">
-    <span class="num">03</span>
-    <span class="label">Your Audience</span>
-  </div>
-  <div class="step-tab" data-step="4">
-    <span class="num">04</span>
-    <span class="label">Content Style</span>
-  </div>
-  <div class="step-tab" data-step="5">
-    <span class="num">05</span>
-    <span class="label">Social Goals</span>
-  </div>
-  <div class="step-tab" data-step="6">
-    <span class="num">06</span>
-    <span class="label">Membership</span>
-  </div>
-  <div class="step-tab" data-step="7">
-    <span class="num">07</span>
-    <span class="label">Operations</span>
-  </div>
-</nav>
+  <div class="progress-pct" id="progressPct">1 / 7</div>
+</div>
 
-<!-- Content -->
+<!-- ── MAIN ───────────────────────────────── -->
 <main class="page">
-  <div class="container">
+<div class="container">
 
-    <!-- ── Step 1: Business Overview ──────── -->
-    <section class="step active" id="step-1">
-      <div class="step-header">
-        <div class="step-eyebrow">Step 01 of 07</div>
-        <h1 class="step-title">Your <em>Business</em></h1>
-        <p class="step-subtitle">Let's start with the essentials — who you are, where you live online, and how people find you today.</p>
-        <div class="divider"></div>
-      </div>
-      <div class="field-group">
-        <div class="row-2">
-          <div class="field">
-            <label>Business Name</label>
-            <input type="text" placeholder="Side Street Lounge" />
-          </div>
-          <div class="field">
-            <label>Primary Location</label>
-            <input type="text" placeholder="City, State" />
-          </div>
-        </div>
-        <div class="row-2">
-          <div class="field">
-            <label>Phone Number</label>
-            <input type="tel" placeholder="(   )  —" />
-          </div>
-          <div class="field">
-            <label>Business Email</label>
-            <input type="email" placeholder="hello@sidestreetlounge.com" />
-          </div>
-        </div>
-        <div class="field">
-          <label>Website URL</label>
-          <input type="url" placeholder="https://" />
-        </div>
-        <div class="section-card">
-          <div class="section-card-title">Current Social Handles</div>
-          <div class="field-group">
-            <div class="row-2">
-              <div class="field">
-                <label>Instagram</label>
-                <input type="text" placeholder="@handle" />
-              </div>
-              <div class="field">
-                <label>TikTok</label>
-                <input type="text" placeholder="@handle" />
-              </div>
-            </div>
-            <div class="row-2">
-              <div class="field">
-                <label>Facebook</label>
-                <input type="text" placeholder="Page name or URL" />
-              </div>
-              <div class="field">
-                <label>Other Platform</label>
-                <input type="text" placeholder="Platform + handle" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <label>How did you hear about Revyn Marketing?</label>
-          <input type="text" placeholder="Referral, social media, cold outreach…" />
-        </div>
-      </div>
-      <div class="nav-row">
-        <div class="step-counter">Step <span>1</span> of 7</div>
-        <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
-      </div>
-    </section>
+<!-- ══════════════════════════════════════════
+     STEP 1 — YOUR BUSINESS
+══════════════════════════════════════════ -->
+<section class="step active" id="step-1">
+  <div class="step-header">
+    <div class="step-eyebrow">Step 01 of 07</div>
+    <h1 class="step-title">Your <em>Business</em></h1>
+    <p class="step-subtitle">The essentials — who you are, where to find you, and a snapshot of where you stand today.</p>
+    <div class="ornament-line"><span>✦</span></div>
+  </div>
 
-    <!-- ── Step 2: Brand Identity ──────────── -->
-    <section class="step" id="step-2">
-      <div class="step-header">
-        <div class="step-eyebrow">Step 02 of 07</div>
-        <h1 class="step-title">Brand <em>Identity</em></h1>
-        <p class="step-subtitle">Your brand is more than a logo. Help us understand the soul of Side Street Lounge — the feeling, the story, the distinction.</p>
-        <div class="divider"></div>
+  <div class="field-group">
+    <div class="field">
+      <label>Legal Business Name</label>
+      <input type="text" placeholder="Side Street Lounge LLC" />
+    </div>
+    <div class="grid-2">
+      <div class="field">
+        <label>DBA / Brand Name</label>
+        <input type="text" placeholder="Name used publicly" />
       </div>
-      <div class="field-group">
-        <div class="field">
-          <label>Describe your brand in 3 words</label>
-          <p class="hint">Think of the feeling someone should have when they walk through your door.</p>
-          <input type="text" placeholder="e.g. Sophisticated · Intimate · Exclusive" />
-        </div>
-        <div class="field">
-          <label>Your Origin Story</label>
-          <p class="hint">Why was Side Street Lounge created? What gap did it fill? What makes it genuinely different from anything else in the market?</p>
-          <textarea placeholder="Share the story behind the lounge — the vision, the 'why,' the moment it clicked…"></textarea>
-        </div>
-        <div class="field">
-          <label>What is your tagline or positioning statement?</label>
-          <p class="hint">If you don't have one yet, describe the experience in one sentence.</p>
-          <input type="text" placeholder="e.g. 'Your city. Your room.' or still figuring it out — tell us." />
-        </div>
-        <div class="field">
-          <label>What are 3–5 things that make you completely unique?</label>
-          <p class="hint">Think: atmosphere, amenities, access, events, community, niche — anything a competitor cannot easily copy.</p>
-          <textarea placeholder="1. Full cigar-friendly indoor lounge&#10;2. Private workspace + coworking amenities&#10;3. …"></textarea>
-        </div>
-        <div class="field">
-          <label>What tone should our content reflect?</label>
-          <div class="card-grid" style="margin-top:8px;">
-            <label class="card-select" onclick="toggleCard(this)">
-              <input type="checkbox" />
-              <div class="cs-title">Polished & Formal</div>
-              <div class="cs-desc">Elevated language, luxury positioning, no slang</div>
-            </label>
-            <label class="card-select" onclick="toggleCard(this)">
-              <input type="checkbox" />
-              <div class="cs-title">Warm & Inviting</div>
-              <div class="cs-desc">Welcoming, community-forward, approachable luxury</div>
-            </label>
-            <label class="card-select" onclick="toggleCard(this)">
-              <input type="checkbox" />
-              <div class="cs-title">Bold & Confident</div>
-              <div class="cs-desc">Strong statements, unapologetic, commands attention</div>
-            </label>
-            <label class="card-select" onclick="toggleCard(this)">
-              <input type="checkbox" />
-              <div class="cs-title">Mysterious & Curated</div>
-              <div class="cs-desc">Less is more, intrigue over explanation, members-only feel</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Accounts or brands you admire aesthetically</label>
-          <p class="hint">Instagram handles, businesses, hospitality brands — anyone whose look or voice you respect.</p>
-          <textarea placeholder="@nobu, @sohohouse, @thecigarsociety — tell us who's doing it right in your eyes…" style="min-height:80px;"></textarea>
-        </div>
-        <div class="field">
-          <label>What should we never do or say?</label>
-          <p class="hint">Brand no-gos — topics, tones, aesthetics, comparisons, or anything that would feel off.</p>
-          <textarea placeholder="Never compare us to a dive bar, avoid overly casual language, don't post anything related to…" style="min-height:80px;"></textarea>
-        </div>
+      <div class="field">
+        <label>Year Established</label>
+        <input type="text" placeholder="e.g. 2021" />
       </div>
-      <div class="nav-row">
-        <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
-        <div class="step-counter">Step <span>2</span> of 7</div>
-        <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+    <div class="field">
+      <label>Physical Address</label>
+      <input type="text" placeholder="Street, City, State ZIP" />
+    </div>
+    <div class="grid-2">
+      <div class="field">
+        <label>Business Phone</label>
+        <input type="tel" placeholder="(   )  — " />
       </div>
-    </section>
-
-    <!-- ── Step 3: Target Audience ─────────── -->
-    <section class="step" id="step-3">
-      <div class="step-header">
-        <div class="step-eyebrow">Step 03 of 07</div>
-        <h1 class="step-title">Your <em>Audience</em></h1>
-        <p class="step-subtitle">Great content speaks to a specific person. Help us understand exactly who's already walking through your door — and who you want more of.</p>
-        <div class="divider"></div>
+      <div class="field">
+        <label>Business Email</label>
+        <input type="email" placeholder="hello@sidestreetlounge.com" />
       </div>
-      <div class="field-group">
-        <div class="field">
-          <label>Who is your ideal member?</label>
-          <p class="hint">Paint a picture: age, profession, lifestyle, what they value, what they do on weekends.</p>
-          <textarea placeholder="e.g. Mid-30s to 55, business owners and executives, appreciate the finer things, work hard and unwind intentionally, entertain clients regularly…"></textarea>
-        </div>
-        <div class="field">
-          <label>Which audience segments are you targeting? (Select all that apply)</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">
-                <strong>The Remote Worker / Freelancer</strong>
-                Needs a premium workspace with atmosphere — not a coffee shop
-              </div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">
-                <strong>The Entertainer</strong>
-                Hosts clients, friends, or colleagues — wants their own "spot"
-              </div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">
-                <strong>The Business Owner / Executive</strong>
-                Uses the lounge for meetings, offsites, deal-closing dinners
-              </div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">
-                <strong>The Cigar Enthusiast</strong>
-                The connoisseur who wants a dedicated, premium indoor space
-              </div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">
-                <strong>The Social Member</strong>
-                Events, community, the social scene — it's about the people
-              </div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">
-                <strong>Other (describe below)</strong>
-              </div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Geographic focus</label>
-          <p class="hint">Primary city/area, plus any broader reach you're targeting (e.g. wine country visitors, weekend travelers).</p>
-          <input type="text" placeholder="e.g. Napa Valley locals + Sonoma/SF Bay Area visitors" />
-        </div>
-        <div class="row-2">
-          <div class="field">
-            <label>Age Range</label>
-            <input type="text" placeholder="e.g. 30–60" />
-          </div>
-          <div class="field">
-            <label>Household Income Bracket</label>
-            <select>
-              <option value="">Select range</option>
-              <option>Under $75K</option>
-              <option>$75K – $150K</option>
-              <option>$150K – $300K</option>
-              <option>$300K+</option>
-              <option>Mixed</option>
-            </select>
-          </div>
-        </div>
-        <div class="field">
-          <label>What does your ideal member already follow or engage with online?</label>
-          <p class="hint">Luxury brands, lifestyle accounts, business content, hospitality — what's already in their feed?</p>
-          <textarea placeholder="Forbes, cigar accounts, wine/spirits influencers, local business pages, entrepreneurship content…" style="min-height:80px;"></textarea>
-        </div>
-        <div class="field">
-          <label>What pain point does membership solve for them?</label>
-          <p class="hint">What's the frustration, the gap, the thing they couldn't find before Side Street Lounge existed?</p>
-          <textarea placeholder="Nowhere to smoke indoors, no premium work-and-entertain space in the area, tired of loud restaurants for client meetings…" style="min-height:80px;"></textarea>
-        </div>
-      </div>
-      <div class="nav-row">
-        <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
-        <div class="step-counter">Step <span>3</span> of 7</div>
-        <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
-      </div>
-    </section>
-
-    <!-- ── Step 4: Content Style ───────────── -->
-    <section class="step" id="step-4">
-      <div class="step-header">
-        <div class="step-eyebrow">Step 04 of 07</div>
-        <h1 class="step-title">Content <em>Style</em></h1>
-        <p class="step-subtitle">We'll be shooting, editing, and crafting everything. Tell us what's already on hand and what the visual world of Side Street Lounge looks like.</p>
-        <div class="divider"></div>
-      </div>
-      <div class="field-group">
-        <div class="field">
-          <label>Do you have existing professional photos or video?</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="radio" name="existing_assets" />
-              <div class="check-label">Yes — we have a full library of professional photos and video</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="existing_assets" />
-              <div class="check-label">Some — we have a mix of professional and phone content</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="existing_assets" />
-              <div class="check-label">Minimal — mostly phone shots and not much organized</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="existing_assets" />
-              <div class="check-label">Starting fresh — we need everything captured from scratch</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Are you open to Revyn coming on-site to capture content?</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="radio" name="onsite" />
-              <div class="check-label">Yes — the more, the better. Come anytime.</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="onsite" />
-              <div class="check-label">Yes — but coordinate in advance so we can prepare the space</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="onsite" />
-              <div class="check-label">Prefer to supply content ourselves, use us sparingly</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Preferred visual aesthetic</label>
-          <div class="card-grid" style="margin-top:8px;">
-            <label class="card-select" onclick="toggleCard(this)">
-              <input type="checkbox" />
-              <div class="cs-title">Dark & Moody</div>
-              <div class="cs-desc">Deep blacks, warm amber tones, dramatic low-light</div>
-            </label>
-            <label class="card-select" onclick="toggleCard(this)">
-              <input type="checkbox" />
-              <div class="cs-title">Clean & Minimal</div>
-              <div class="cs-desc">Crisp whites, negative space, understated luxury</div>
-            </label>
-            <label class="card-select" onclick="toggleCard(this)">
-              <input type="checkbox" />
-              <div class="cs-title">Rich & Textured</div>
-              <div class="cs-desc">Leather, wood, smoke, whiskey — sensory and layered</div>
-            </label>
-            <label class="card-select" onclick="toggleCard(this)">
-              <input type="checkbox" />
-              <div class="cs-title">Cinematic & Editorial</div>
-              <div class="cs-desc">Film-inspired, high contrast, magazine-quality framing</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Brand colors (if defined)</label>
-          <p class="hint">List hex codes, describe colors, or just say "not defined yet."</p>
-          <input type="text" placeholder="e.g. Deep navy #0d1b2a, gold #c9a96e, off-white #f5f0e8" />
-        </div>
-        <div class="field">
-          <label>Content types you want to prioritize</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>Atmosphere & Ambiance</strong> — The space, the mood, the lighting</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>Member Lifestyle</strong> — People enjoying the lounge experience</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>Cigar Education & Culture</strong> — Pairings, process, connoisseurship</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>Events & Experiences</strong> — What's happening, FOMO-inducing content</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>Behind the Scenes</strong> — Staff, sourcing, daily life at the lounge</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>Membership Value</strong> — Content that drives tour bookings and sign-ups</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>Coworking / Workspace</strong> — The productivity angle for remote workers</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Any specific content ideas or themes you've been wanting to try?</label>
-          <textarea placeholder="Day-in-the-life Reels, 'what's in my humidor' series, event recaps, member spotlights…" style="min-height:80px;"></textarea>
-        </div>
-      </div>
-      <div class="nav-row">
-        <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
-        <div class="step-counter">Step <span>4</span> of 7</div>
-        <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
-      </div>
-    </section>
-
-    <!-- ── Step 5: Social Media Goals ────────── -->
-    <section class="step" id="step-5">
-      <div class="step-header">
-        <div class="step-eyebrow">Step 05 of 07</div>
-        <h1 class="step-title">Social Media <em>Goals</em></h1>
-        <p class="step-subtitle">Where are you now, where do you want to go, and what does winning look like? The clearer your goals, the sharper our strategy.</p>
-        <div class="divider"></div>
-      </div>
-      <div class="field-group">
-        <div class="field">
-          <label>Primary platform focus</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>Instagram</strong> — Priority platform</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>TikTok</strong> — Short-form video, younger/broader reach</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>Facebook</strong> — Events, local community, older demographic</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label"><strong>LinkedIn</strong> — B2B, corporate memberships, networking</div>
-            </label>
-          </div>
-        </div>
-        <div class="section-card">
-          <div class="section-card-title">Current Follower Counts</div>
-          <div class="row-2">
-            <div class="field">
-              <label>Instagram Followers</label>
-              <input type="text" placeholder="e.g. 1,200" />
-            </div>
-            <div class="field">
-              <label>TikTok Followers</label>
-              <input type="text" placeholder="e.g. 800 or N/A" />
-            </div>
-          </div>
-          <div class="row-2" style="margin-top:20px;">
-            <div class="field">
-              <label>Facebook Followers/Likes</label>
-              <input type="text" placeholder="e.g. 450 or N/A" />
-            </div>
-            <div class="field">
-              <label>LinkedIn Followers</label>
-              <input type="text" placeholder="e.g. 200 or N/A" />
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <label>What is the #1 action you want social media to drive?</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="radio" name="primary_cta" />
-              <div class="check-label">Book a tour / Schedule a visit</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="primary_cta" />
-              <div class="check-label">Inquire about membership</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="primary_cta" />
-              <div class="check-label">Attend an event</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="primary_cta" />
-              <div class="check-label">General awareness / brand building</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>What does success look like in 90 days?</label>
-          <p class="hint">Be specific: follower count, inquiries, event attendance, tour bookings — whatever matters most to you.</p>
-          <textarea placeholder="We want to be getting 5+ new membership inquiries per month, grow Instagram to 3k followers, have a recognizable brand in the Napa area…" style="min-height:90px;"></textarea>
-        </div>
-        <div class="field">
-          <label>Are you currently running paid social ads?</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="radio" name="paid_ads" />
-              <div class="check-label">Yes — actively running Meta or other paid ads</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="paid_ads" />
-              <div class="check-label">No — but interested in exploring it</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="paid_ads" />
-              <div class="check-label">No — keeping organic only for now</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Competitors or comparable brands you're aware of</label>
-          <p class="hint">Other lounges, membership clubs, or hospitality brands in your market.</p>
-          <input type="text" placeholder="Other local lounges, Napa membership clubs, regional competitors…" />
-        </div>
-      </div>
-      <div class="nav-row">
-        <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
-        <div class="step-counter">Step <span>5</span> of 7</div>
-        <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
-      </div>
-    </section>
-
-    <!-- ── Step 6: Membership & Services ──────── -->
-    <section class="step" id="step-6">
-      <div class="step-header">
-        <div class="step-eyebrow">Step 06 of 07</div>
-        <h1 class="step-title">Membership &amp; <em>Offerings</em></h1>
-        <p class="step-subtitle">We need to know what we're selling — your tiers, amenities, and events. This shapes every call-to-action in our content.</p>
-        <div class="divider"></div>
-      </div>
-      <div class="field-group">
-        <div class="field">
-          <label>Current Membership Tiers</label>
-          <p class="hint">List each tier name and a brief description of what's included. If you only have one tier, describe it fully.</p>
-          <textarea placeholder="Tier 1 — [Name]: $XXX/month — includes access to X, Y, Z&#10;Tier 2 — [Name]: $XXX/month — includes everything above + …&#10;&#10;Or describe your single membership here." style="min-height:120px;"></textarea>
-        </div>
-        <div class="field">
-          <label>Key amenities we should be highlighting</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">Indoor cigar smoking lounge</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">Private humidor / locker storage</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">High-speed WiFi + coworking workspace</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">Full bar / craft cocktails</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">Private event hosting</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">Members-only events (tastings, releases, etc.)</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">Multiple TVs / sports viewing</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">Guest privileges</div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" />
-              <div class="check-label">Printing / office services</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Upcoming events or promotions (next 60–90 days)</label>
-          <p class="hint">Anything in the pipeline — cigar releases, member nights, collaborations, holiday events.</p>
-          <textarea placeholder="Patagonia cigar launch night on [date]…&#10;Monthly members poker night…&#10;Wine & cigar pairing event…" style="min-height:90px;"></textarea>
-        </div>
-        <div class="field">
-          <label>Can we feature members in content?</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="radio" name="member_feature" />
-              <div class="check-label">Yes — with their permission, we'd love member spotlights</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="member_feature" />
-              <div class="check-label">Sometimes — certain members are open to it, we'll facilitate</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="member_feature" />
-              <div class="check-label">No — member privacy is important, keep people out of content</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Is there anything about your business we should never post about?</label>
-          <p class="hint">Sensitive topics, pending changes, areas under renovation, member-only information that shouldn't go public.</p>
-          <textarea placeholder="Pricing details, member names without consent, events still being planned, any construction/renovations in progress…" style="min-height:80px;"></textarea>
-        </div>
-      </div>
-      <div class="nav-row">
-        <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
-        <div class="step-counter">Step <span>6</span> of 7</div>
-        <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
-      </div>
-    </section>
-
-    <!-- ── Step 7: Operations ──────────────── -->
-    <section class="step" id="step-7">
-      <div class="step-header">
-        <div class="step-eyebrow">Step 07 of 07</div>
-        <h1 class="step-title">Operations &amp; <em>Communication</em></h1>
-        <p class="step-subtitle">Last step. Tell us how you like to work — approvals, communication, and anything else before we kick things off.</p>
-        <div class="divider"></div>
-      </div>
-      <div class="field-group">
-        <div class="field">
-          <label>Primary Point of Contact</label>
-          <div class="row-2">
-            <div class="field">
-              <label>Full Name</label>
-              <input type="text" placeholder="Your name" />
-            </div>
-            <div class="field">
-              <label>Title / Role</label>
-              <input type="text" placeholder="Owner, GM, Marketing…" />
-            </div>
-          </div>
-        </div>
-        <div class="row-2">
-          <div class="field">
-            <label>Best Phone / Text</label>
-            <input type="tel" placeholder="(   )  —" />
-          </div>
-          <div class="field">
-            <label>Best Email</label>
-            <input type="email" placeholder="your@email.com" />
-          </div>
-        </div>
-        <div class="field">
-          <label>Preferred communication method</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="radio" name="comms" />
-              <div class="check-label">Text / SMS — quick and direct</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="comms" />
-              <div class="check-label">Email — for formal approvals and documentation</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="comms" />
-              <div class="check-label">Phone calls — prefer talking things through</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="comms" />
-              <div class="check-label">Slack / project management tool</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Content approval workflow</label>
-          <p class="hint">How do you want to review posts before they go live?</p>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="radio" name="approval" />
-              <div class="check-label"><strong>Weekly batch review</strong> — We'll send a week of content every Monday for approval</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="approval" />
-              <div class="check-label"><strong>Post-by-post approval</strong> — I want to see and approve each post individually</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="approval" />
-              <div class="check-label"><strong>Trust Revyn's judgment</strong> — Post freely within our agreed guidelines, just notify me</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>How much lead time do you need to review content?</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="radio" name="lead_time" />
-              <div class="check-label">24 hours is fine</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="lead_time" />
-              <div class="check-label">48 hours preferred</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="lead_time" />
-              <div class="check-label">72 hours or more</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Do you have access to your social accounts (login info available)?</label>
-          <div class="check-group" style="margin-top:8px;">
-            <label class="check-item">
-              <input type="radio" name="access" />
-              <div class="check-label">Yes — I can add Revyn as an editor/admin on all platforms</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="access" />
-              <div class="check-label">Partially — I have some, need to track down the rest</div>
-            </label>
-            <label class="check-item">
-              <input type="radio" name="access" />
-              <div class="check-label">We'll need to sort out access together</div>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Anything else we should know before we begin?</label>
-          <p class="hint">Context, past experiences with social media management, expectations, questions — share it here.</p>
-          <textarea placeholder="We tried a marketing company before and the content felt generic, we have a brand event coming up on [date] that we want to launch with, we're especially sensitive about…" style="min-height:100px;"></textarea>
-        </div>
-      </div>
-      <div class="nav-row">
-        <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
-        <div class="step-counter">Step <span>7</span> of 7</div>
-        <button class="btn btn-submit" onclick="submitForm()">Submit Onboarding ✦</button>
-      </div>
-    </section>
-
-    <!-- Thank You -->
-    <div id="thankyou">
-      <div class="ty-ornament">✦</div>
-      <h2 class="ty-title">You're all set.</h2>
-      <p class="ty-body">
-        Thank you for completing the Side Street Lounge onboarding.
-        Revyn Marketing will review your responses and be in touch within 24–48 hours
-        to schedule your kickoff call and content calendar review.
-      </p>
-      <div class="ty-brand">Revyn Marketing · revynmarketingagency.com</div>
+    </div>
+    <div class="field">
+      <label>Website URL</label>
+      <input type="url" placeholder="https://" />
     </div>
 
+    <div class="section-block">
+      <div class="section-block-title">Business Hours</div>
+      <div class="field-group">
+        <div class="grid-2">
+          <div class="field">
+            <label>Weekday Hours</label>
+            <input type="text" placeholder="e.g. Mon–Fri  10am – 10pm" />
+          </div>
+          <div class="field">
+            <label>Weekend Hours</label>
+            <input type="text" placeholder="e.g. Sat–Sun  12pm – 12am" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Any Closed Days / Special Access Notes</label>
+          <input type="text" placeholder="e.g. Closed Tuesdays, Members-only after 9pm…" />
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-block-title">Current Social Media Handles</div>
+      <div class="field-group">
+        <div class="grid-2">
+          <div class="field">
+            <label>Instagram</label>
+            <input type="text" placeholder="@handle" />
+          </div>
+          <div class="field">
+            <label>TikTok</label>
+            <input type="text" placeholder="@handle or N/A" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Facebook</label>
+            <input type="text" placeholder="Page name or URL" />
+          </div>
+          <div class="field">
+            <label>LinkedIn</label>
+            <input type="text" placeholder="Company page or N/A" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Any Other Platforms</label>
+          <input type="text" placeholder="YouTube, X/Twitter, etc." />
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-block-title">Membership Snapshot</div>
+      <div class="field-group">
+        <div class="grid-2">
+          <div class="field">
+            <label>Current Active Members (approx.)</label>
+            <input type="text" placeholder="e.g. 85" />
+          </div>
+          <div class="field">
+            <label>Member Capacity / Goal</label>
+            <input type="text" placeholder="e.g. 150 max" />
+          </div>
+        </div>
+        <div class="field">
+          <label>How long have you been open?</label>
+          <input type="text" placeholder="e.g. 2 years, soft opened 6 months ago…" />
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>How did you find Revyn Marketing?</label>
+      <input type="text" placeholder="Referral, Instagram, cold outreach, Google…" />
+    </div>
   </div>
+
+  <div class="nav-row">
+    <div class="nav-spacer"></div>
+    <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STEP 2 — BRAND IDENTITY
+══════════════════════════════════════════ -->
+<section class="step" id="step-2">
+  <div class="step-header">
+    <div class="step-eyebrow">Step 02 of 07</div>
+    <h1 class="step-title">Brand <em>Identity</em></h1>
+    <p class="step-subtitle">Your brand is a feeling before it's a logo. Help us understand the soul of Side Street Lounge — the story, the distinction, the world you're creating.</p>
+    <div class="ornament-line"><span>✦</span></div>
+  </div>
+
+  <div class="field-group">
+    <div class="field">
+      <label>Describe your brand in 3 words</label>
+      <p class="hint">These become our creative compass for every post, caption, and visual decision.</p>
+      <input type="text" placeholder="e.g. Sophisticated · Intimate · Timeless" />
+    </div>
+
+    <div class="field">
+      <label>Your Tagline or Positioning Statement</label>
+      <p class="hint">What do you want people to say about Side Street Lounge when they recommend it to a friend?</p>
+      <input type="text" placeholder="e.g. 'The only place in Napa where the whole evening belongs to you.'" />
+    </div>
+
+    <div class="field">
+      <label>The Origin Story</label>
+      <p class="hint">Why does Side Street Lounge exist? What gap did it fill? What was the vision when it started?</p>
+      <textarea placeholder="Tell us the founding story — who, why, and what you wanted to create that didn't exist before…" style="min-height:110px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>What makes you completely impossible to copy?</label>
+      <p class="hint">List 3–5 things that are genuinely yours — the atmosphere, the people, the amenities, the experience. Think: what could a competitor NOT replicate overnight?</p>
+      <textarea placeholder="1. The only fully-enclosed indoor cigar lounge in Napa&#10;2. Membership community — the people you meet here&#10;3. Full coworking + private event space under one roof&#10;4. …"></textarea>
+    </div>
+
+    <div class="field">
+      <label>The brand tone — how should we sound?</label>
+      <div class="card-grid" style="margin-top:4px;">
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">Aa</div><div class="co-title">Polished & Formal</div><div class="co-desc">Elevated language, luxury positioning — never casual</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">◎</div><div class="co-title">Warm & Welcoming</div><div class="co-desc">Community feel, approachable luxury, inviting energy</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">▲</div><div class="co-title">Bold & Confident</div><div class="co-desc">Strong statements, zero apology, commands attention</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">◈</div><div class="co-title">Mysterious & Curated</div><div class="co-desc">Less is more — intrigue over explanation, members-only feel</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">⬡</div><div class="co-title">Aspirational & Lifestyle</div><div class="co-desc">You're selling a way of life, not a room</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">◇</div><div class="co-title">Classic & Timeless</div><div class="co-desc">Rat Pack era inspiration — storied, referential, heritage-forward</div></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Caption style preference</label>
+      <p class="hint">How long and how wordy should our captions typically be?</p>
+      <div class="check-list">
+        <label class="check-item">
+          <input type="radio" name="caption" />
+          <div class="check-text"><span class="check-title">Short & punchy — 1 to 2 lines max</span><span class="check-desc">Let the visual do the work. Minimal copy.</span></div>
+        </label>
+        <label class="check-item">
+          <input type="radio" name="caption" />
+          <div class="check-text"><span class="check-title">Medium — 3 to 5 lines with intent</span><span class="check-desc">A line or two of atmosphere + a clear CTA.</span></div>
+        </label>
+        <label class="check-item">
+          <input type="radio" name="caption" />
+          <div class="check-text"><span class="check-title">Long-form storytelling</span><span class="check-desc">Deep captions — stories, context, member perspectives.</span></div>
+        </label>
+        <label class="check-item">
+          <input type="radio" name="caption" />
+          <div class="check-text"><span class="check-title">Mix — varies by post type</span><span class="check-desc">Short for Reels, longer for carousels/culture posts.</span></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Brands, accounts, or aesthetics you admire</label>
+      <p class="hint">Instagram handles, hotel brands, restaurant groups, luxury clubs — anyone whose look or voice you respect. Links welcome.</p>
+      <textarea placeholder="@nobu, @sohohouse, @thecigarsociety, The Macallan's IG, Four Seasons — tell us who's doing it right in your eyes…" style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>What should we absolutely never do, say, or post?</label>
+      <p class="hint">Hard no-gos — topics, tones, aesthetics, comparisons, anything that would feel wrong for the brand.</p>
+      <textarea placeholder="Don't compare us to a bar or dive, avoid slang/memes, never post low-quality photos, don't mention competitors by name…" style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Do you have existing brand guidelines?</label>
+      <div class="check-list">
+        <label class="check-item">
+          <input type="radio" name="brand_guide" />
+          <div class="check-text"><span class="check-title">Yes — full brand guide with fonts, colors, logo usage</span></div>
+        </label>
+        <label class="check-item">
+          <input type="radio" name="brand_guide" />
+          <div class="check-text"><span class="check-title">Partial — logo files and some colors but nothing formal</span></div>
+        </label>
+        <label class="check-item">
+          <input type="radio" name="brand_guide" />
+          <div class="check-text"><span class="check-title">No — we're building it as we go</span></div>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+    <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STEP 3 — TARGET AUDIENCE
+══════════════════════════════════════════ -->
+<section class="step" id="step-3">
+  <div class="step-header">
+    <div class="step-eyebrow">Step 03 of 07</div>
+    <h1 class="step-title">Your <em>Audience</em></h1>
+    <p class="step-subtitle">Great content speaks to a specific person. The more clearly we understand who's already in your chairs — and who you want more of — the sharper our strategy becomes.</p>
+    <div class="ornament-line"><span>✦</span></div>
+  </div>
+
+  <div class="field-group">
+    <div class="field">
+      <label>Describe your ideal member</label>
+      <p class="hint">Paint a full picture: age, profession, lifestyle, what they value, where else they spend money, how they spend a Tuesday evening.</p>
+      <textarea placeholder="Mid-30s to 55, business owner or senior executive in the Napa/Sonoma area. Has expendable income, appreciates quality over quantity. Entertains clients regularly, likes having a 'spot.' Bourbon or whiskey drinker. Drives a German car…" style="min-height:120px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Primary audience segments to target</label>
+      <p class="hint">Select all that apply — these become our content pillars and ad targeting buckets.</p>
+      <div class="check-list">
+        <label class="check-item">
+          <input type="checkbox" />
+          <div class="check-text"><span class="check-title">The Remote Worker / Freelancer</span><span class="check-desc">Premium workspace with atmosphere — WiFi, focus, a great environment. Sick of working from home or noisy coffee shops.</span></div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <div class="check-text"><span class="check-title">The Entertainer</span><span class="check-desc">Wants their own "spot." Brings clients, friends, dates. The lounge is an extension of their hospitality identity.</span></div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <div class="check-text"><span class="check-title">The Business Owner / Executive</span><span class="check-desc">Uses the lounge for client meetings, team offsites, deal-closing conversations in a premium setting.</span></div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <div class="check-text"><span class="check-title">The Cigar Connoisseur</span><span class="check-desc">Deep appreciation for cigars — the ritual, the craft, the culture. Wants a dedicated premium indoor space, not a patio.</span></div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <div class="check-text"><span class="check-title">The Social Scene Member</span><span class="check-desc">It's about the community — events, poker nights, the people. Membership = belonging.</span></div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <div class="check-text"><span class="check-title">Wine Country Visitors / Tourists</span><span class="check-desc">Napa draws high-income travelers. Day-trip or weekend guest who discovers Side Street on a visit.</span></div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <div class="check-text"><span class="check-title">Other — describe in notes at the end</span></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Primary Age Range</label>
+        <input type="text" placeholder="e.g. 30 – 60" />
+      </div>
+      <div class="field">
+        <label>Gender Skew</label>
+        <select>
+          <option value="">Select</option>
+          <option>Primarily male</option>
+          <option>Primarily female</option>
+          <option>Mixed / roughly even</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Geographic Focus</label>
+        <input type="text" placeholder="e.g. Napa Valley locals + Sonoma" />
+      </div>
+      <div class="field">
+        <label>Household Income Target</label>
+        <select>
+          <option value="">Select</option>
+          <option>$75K – $150K</option>
+          <option>$150K – $300K</option>
+          <option>$300K – $500K</option>
+          <option>$500K+</option>
+          <option>Mixed</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Where do new members currently come from?</label>
+      <p class="hint">How do people find you today — before social media management kicks in?</p>
+      <div class="check-list">
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Word of mouth / member referrals</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Instagram / TikTok organic</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Walk-ins / foot traffic</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Google Search / Maps</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Events or pop-ups</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Local press or features</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Paid advertising</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>What does your ideal member already consume online?</label>
+      <p class="hint">Brands, accounts, content types already in their feed. This shapes our targeting and creative approach.</p>
+      <textarea placeholder="Forbes, Cigar Aficionado, whiskey accounts, luxury lifestyle influencers, entrepreneurship content, local Napa/wine country pages…" style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>What problem does membership solve that they couldn't solve before?</label>
+      <p class="hint">The itch they couldn't scratch. The gap Side Street fills that nothing else in the area offers.</p>
+      <textarea placeholder="Nowhere to smoke indoors in Napa, no premium space to bring clients that isn't a restaurant, the coworking spaces are sterile and uninspiring…" style="min-height:80px;"></textarea>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+    <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STEP 4 — CONTENT STYLE
+══════════════════════════════════════════ -->
+<section class="step" id="step-4">
+  <div class="step-header">
+    <div class="step-eyebrow">Step 04 of 07</div>
+    <h1 class="step-title">Content <em>Style</em></h1>
+    <p class="step-subtitle">We're handling the shoot, the edit, and the posting. Tell us what you already have, what the space looks like through a lens, and what kind of content you want to lead with.</p>
+    <div class="ornament-line"><span>✦</span></div>
+  </div>
+
+  <div class="field-group">
+    <div class="field">
+      <label>Existing photo and video library</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="assets" /><div class="check-text"><span class="check-title">Strong library — professional photos and edited video already exist</span><span class="check-desc">We can hit the ground running with what you have.</span></div></label>
+        <label class="check-item"><input type="radio" name="assets" /><div class="check-text"><span class="check-title">Some — mix of professional and phone content</span><span class="check-desc">Usable for now, but we'll want to build a fresh library.</span></div></label>
+        <label class="check-item"><input type="radio" name="assets" /><div class="check-text"><span class="check-title">Minimal — mostly informal shots, nothing organized</span><span class="check-desc">We'll do an on-site shoot before launching.</span></div></label>
+        <label class="check-item"><input type="radio" name="assets" /><div class="check-text"><span class="check-title">Starting fresh — capture everything from scratch</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>How do you want to handle content capture?</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="capture" /><div class="check-text"><span class="check-title">Revyn comes on-site to shoot — fully hands-off for us</span><span class="check-desc">You handle everything. We just show up.</span></div></label>
+        <label class="check-item"><input type="radio" name="capture" /><div class="check-text"><span class="check-title">Revyn comes on-site + we coordinate in advance</span><span class="check-desc">We'll schedule dedicated shoot dates and prep the space.</span></div></label>
+        <label class="check-item"><input type="radio" name="capture" /><div class="check-text"><span class="check-title">We supply content, Revyn handles editing and strategy</span><span class="check-desc">Our team captures; Revyn produces and posts.</span></div></label>
+        <label class="check-item"><input type="radio" name="capture" /><div class="check-text"><span class="check-title">Mix — some shoots, some supplied</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Preferred visual aesthetic</label>
+      <div class="card-grid" style="margin-top:4px;">
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">◾</div><div class="co-title">Dark & Moody</div><div class="co-desc">Deep blacks, amber warmth, dramatic low-light</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">□</div><div class="co-title">Clean & Minimal</div><div class="co-desc">Crisp frames, negative space, understated luxury</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">◈</div><div class="co-title">Rich & Textured</div><div class="co-desc">Leather, smoke, whiskey, wood — layered and sensory</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">▣</div><div class="co-title">Cinematic & Editorial</div><div class="co-desc">Film-quality framing, high contrast, magazine look</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">◉</div><div class="co-title">Warm & Golden Hour</div><div class="co-desc">Amber tones, candlelight, rich golds — inviting warmth</div></div>
+        <div class="card-option" onclick="toggleCard(this)"><input type="checkbox" /><div class="co-icon">◇</div><div class="co-title">Vintage & Nostalgic</div><div class="co-desc">Rat Pack era feel — grain, analog warmth, timeless</div></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Video vs. Photo mix</label>
+      <p class="hint">How should we balance Reels/TikTok video against static photos and carousels?</p>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="mix" /><div class="check-text"><span class="check-title">Heavy video — 70% Reels/TikTok, 30% static</span></div></label>
+        <label class="check-item"><input type="radio" name="mix" /><div class="check-text"><span class="check-title">Balanced — 50/50 video and static</span></div></label>
+        <label class="check-item"><input type="radio" name="mix" /><div class="check-text"><span class="check-title">Photo-forward — 70% static/carousel, 30% video</span></div></label>
+        <label class="check-item"><input type="radio" name="mix" /><div class="check-text"><span class="check-title">Not sure — recommend what works best</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Content pillars — what topics should anchor our posts?</label>
+      <p class="hint">Select your top priorities. These become the recurring themes of your content calendar.</p>
+      <div class="check-list">
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Atmosphere & Ambiance</span><span class="check-desc">The space, the lighting, the mood — visual FOMO</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Member Lifestyle</span><span class="check-desc">People experiencing the lounge — relaxed, thriving, in their element</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Cigar Culture & Education</span><span class="check-desc">Pairings, process, connoisseurship, new arrivals</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Spirits & Cocktails</span><span class="check-desc">The bar program, featured pours, pairing recommendations</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Events & Experiences</span><span class="check-desc">What's coming up, recaps, exclusive member nights</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Membership Value</span><span class="check-desc">Content that directly drives tour bookings and inquiries</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Coworking & Productivity</span><span class="check-desc">The workspace angle — for the remote workers, execs, freelancers</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Behind the Scenes</span><span class="check-desc">Staff, sourcing, daily rituals — the human side of the brand</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Community Spotlights</span><span class="check-desc">Member stories, business owners, local personalities (with permission)</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Brand colors (if you have them)</label>
+      <p class="hint">Hex codes, Pantone references, or just describe what you're working with. "Not defined" is fine too.</p>
+      <input type="text" placeholder="e.g. Deep black, cognac/bourbon gold, cream — or hex codes" />
+    </div>
+
+    <div class="field">
+      <label>Hashtag strategy preference</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="hashtags" /><div class="check-text"><span class="check-title">Yes — use relevant hashtags to grow reach</span></div></label>
+        <label class="check-item"><input type="radio" name="hashtags" /><div class="check-text"><span class="check-title">Minimal — 3 to 5 max, keep it clean</span></div></label>
+        <label class="check-item"><input type="radio" name="hashtags" /><div class="check-text"><span class="check-title">None — brand aesthetic over discoverability</span></div></label>
+        <label class="check-item"><input type="radio" name="hashtags" /><div class="check-text"><span class="check-title">No preference — recommend what works best</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Any specific content ideas or series you've been sitting on?</label>
+      <textarea placeholder="Day-in-the-life Reels, 'What's in the humidor' series, event recaps, 'Why I joined' member interviews, Tuesday night timelapse…" style="min-height:80px;"></textarea>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+    <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STEP 5 — SOCIAL MEDIA GOALS
+══════════════════════════════════════════ -->
+<section class="step" id="step-5">
+  <div class="step-header">
+    <div class="step-eyebrow">Step 05 of 07</div>
+    <h1 class="step-title">Social Media <em>Goals</em></h1>
+    <p class="step-subtitle">Where are you now, where do you want to go, and what does winning look like for your business? The clearer your goals, the sharper our execution.</p>
+    <div class="ornament-line"><span>✦</span></div>
+  </div>
+
+  <div class="field-group">
+    <div class="field">
+      <label>Platform priority — where should we focus first?</label>
+      <div class="check-list">
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Instagram</span><span class="check-desc">Primary brand presence — photos, Reels, Stories</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">TikTok</span><span class="check-desc">Short-form video, broader reach, younger and new discovery</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Facebook</span><span class="check-desc">Events, local community, older demographic, groups</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">LinkedIn</span><span class="check-desc">Corporate memberships, business owners, professional networking</span></div></label>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-block-title">Current Numbers</div>
+      <div class="field-group">
+        <div class="grid-2">
+          <div class="field"><label>Instagram Followers</label><input type="text" placeholder="e.g. 1,200" /></div>
+          <div class="field"><label>Instagram Avg. Engagement</label><input type="text" placeholder="e.g. 80 likes / post" /></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>TikTok Followers</label><input type="text" placeholder="e.g. 800 or N/A" /></div>
+          <div class="field"><label>Facebook Followers / Likes</label><input type="text" placeholder="e.g. 450 or N/A" /></div>
+        </div>
+        <div class="field">
+          <label>Monthly Tour / Membership Inquiries (current avg.)</label>
+          <input type="text" placeholder="e.g. 3–5 per month, or not tracking yet" />
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>The #1 action you want social to drive</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="cta" /><div class="check-text"><span class="check-title">Book a tour / schedule a visit</span></div></label>
+        <label class="check-item"><input type="radio" name="cta" /><div class="check-text"><span class="check-title">Inquire about membership</span></div></label>
+        <label class="check-item"><input type="radio" name="cta" /><div class="check-text"><span class="check-title">Attend an event</span></div></label>
+        <label class="check-item"><input type="radio" name="cta" /><div class="check-text"><span class="check-title">General brand awareness — grow the audience first</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>What does success look like in 90 days?</label>
+      <p class="hint">Be specific — follower counts, monthly inquiries, event attendance, engagement rate. Give us a number to hit.</p>
+      <textarea placeholder="5+ new membership inquiries/month, grow Instagram to 3k, have a recognizable presence in Napa, consistently getting DMs about tours…" style="min-height:90px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>What does success look like in 6 months?</label>
+      <textarea placeholder="10k Instagram, sold-out events, waiting list for membership, recognized as THE lounge in the wine country area…" style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Posting frequency — how often do you want to appear in the feed?</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="freq" /><div class="check-text"><span class="check-title">2× per week — quality over quantity</span></div></label>
+        <label class="check-item"><input type="radio" name="freq" /><div class="check-text"><span class="check-title">3–4× per week — consistent, steady presence</span></div></label>
+        <label class="check-item"><input type="radio" name="freq" /><div class="check-text"><span class="check-title">Daily or near-daily — aggressive growth mode</span></div></label>
+        <label class="check-item"><input type="radio" name="freq" /><div class="check-text"><span class="check-title">Recommend based on what's best for the algorithm</span></div></label>
+      </div>
+    </div>
+
+    <div class="inline-note">
+      <strong style="color:var(--gold-dim);">Note:</strong> Your current retainer includes 2 posts per week. We'll discuss upgrades if frequency goals exceed that — no surprises.
+    </div>
+
+    <div class="field">
+      <label>Are you open to paid social advertising?</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="paid" /><div class="check-text"><span class="check-title">Yes — actively want to run Meta or Instagram ads</span></div></label>
+        <label class="check-item"><input type="radio" name="paid" /><div class="check-text"><span class="check-title">Interested — open to discussing it as we grow</span></div></label>
+        <label class="check-item"><input type="radio" name="paid" /><div class="check-text"><span class="check-title">Not now — organic only</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Competitors or comparable brands you're aware of</label>
+      <p class="hint">Other lounges, membership clubs, or hospitality venues in your market — local or national brands you're benchmarking against.</p>
+      <textarea placeholder="Other cigar lounges in Napa/Sonoma, wine country membership clubs, upscale coworking spaces, national lounge brands…" style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>What do you think your competitors do better than you on social media right now?</label>
+      <p class="hint">Be honest — this is private. It helps us know exactly where to overtake them.</p>
+      <textarea placeholder="They have more consistent content, better Reels quality, larger following, more engagement from local community…" style="min-height:80px;"></textarea>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+    <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STEP 6 — MEMBERSHIP & OFFERINGS
+══════════════════════════════════════════ -->
+<section class="step" id="step-6">
+  <div class="step-header">
+    <div class="step-eyebrow">Step 06 of 07</div>
+    <h1 class="step-title">Membership &amp; <em>Offerings</em></h1>
+    <p class="step-subtitle">We need to know your product cold before we sell it. Walk us through your tiers, amenities, events, and everything a prospect needs to feel before they book a tour.</p>
+    <div class="ornament-line"><span>✦</span></div>
+  </div>
+
+  <div class="field-group">
+    <div class="field">
+      <label>Membership Tiers</label>
+      <p class="hint">List each tier — name, price, and what's included. If you're not comfortable sharing pricing publicly, note that and we'll keep it off-post.</p>
+      <textarea placeholder="Individual Membership — $XXX/month&#10;Includes: lounge access, 5 guest passes/month, WiFi, X cigars/month, event invitations&#10;&#10;Corporate Membership — $XXX/month&#10;Includes: everything above + 2 staff access cards, private event priority…&#10;&#10;Day Pass — $XX (non-members)" style="min-height:140px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Is pricing shown publicly on your website?</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="pricing_pub" /><div class="check-text"><span class="check-title">Yes — pricing is public and can appear in content</span></div></label>
+        <label class="check-item"><input type="radio" name="pricing_pub" /><div class="check-text"><span class="check-title">No — we prefer to keep pricing off social (inquiry-based)</span></div></label>
+        <label class="check-item"><input type="radio" name="pricing_pub" /><div class="check-text"><span class="check-title">Partially — ranges are fine but not specific numbers</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>How does someone become a member today?</label>
+      <p class="hint">Walk us through the exact process. This shapes the CTA on every post.</p>
+      <textarea placeholder="1. DM or call us to schedule a tour&#10;2. Come in, meet the team, see the space&#10;3. Fill out membership application&#10;4. Approved and onboarded within X days&#10;&#10;Or: online sign-up, waitlist, referral-only…" style="min-height:110px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Key amenities to feature in content</label>
+      <div class="check-list">
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Fully enclosed indoor cigar lounge</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Private humidor storage / lockers</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Full bar with craft spirits and cocktails</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">High-speed WiFi + dedicated coworking area</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Multiple HD TVs / sports viewing</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Private event hosting / buyouts</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Members-only events (tastings, releases, poker nights)</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Printing and office services</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Guest privileges (bring non-members)</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Curated cigar menu / retail selection</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Food service or catering available</span></div></label>
+        <label class="check-item"><input type="checkbox" /><div class="check-text"><span class="check-title">Dedicated parking</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Any other amenities not listed above?</label>
+      <input type="text" placeholder="Tell us anything unique about the space or offerings…" />
+    </div>
+
+    <div class="field">
+      <label>Upcoming events or promotions (next 60–90 days)</label>
+      <p class="hint">Anything in the pipeline we should build content around — cigar releases, member nights, collaborations, holiday events, live music.</p>
+      <textarea placeholder="• June 12 — Monthly members poker night&#10;• June 20 — New Patagonia cigar line launch party&#10;• July 4th weekend — members BBQ + spirits tasting…" style="min-height:100px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Are there recurring events we should document and promote?</label>
+      <input type="text" placeholder="e.g. Weekly poker night (every Thursday), monthly cigar tasting, quarterly guest speaker…" />
+    </div>
+
+    <div class="field">
+      <label>Can we feature members in content?</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="members" /><div class="check-text"><span class="check-title">Yes — with their permission, we'd love member spotlights and testimonials</span></div></label>
+        <label class="check-item"><input type="radio" name="members" /><div class="check-text"><span class="check-title">Sometimes — certain members are open to it; we'll facilitate</span></div></label>
+        <label class="check-item"><input type="radio" name="members" /><div class="check-text"><span class="check-title">No — member privacy is important; keep individuals out of content</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Do you have any current Google or Yelp reviews we should use as social proof?</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="reviews" /><div class="check-text"><span class="check-title">Yes — strong reviews we'd love featured in content</span></div></label>
+        <label class="check-item"><input type="radio" name="reviews" /><div class="check-text"><span class="check-title">Some — a few good ones</span></div></label>
+        <label class="check-item"><input type="radio" name="reviews" /><div class="check-text"><span class="check-title">Not many yet — this is an area to grow</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>What should we absolutely NEVER post about the business?</label>
+      <p class="hint">Sensitive topics, pending changes, pricing details you want protected, areas under renovation, any member-only information that stays private.</p>
+      <textarea placeholder="Member names without explicit consent, upcoming construction, pricing breakdowns, any business disputes, events not yet confirmed…" style="min-height:80px;"></textarea>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+    <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STEP 7 — OPERATIONS
+══════════════════════════════════════════ -->
+<section class="step" id="step-7">
+  <div class="step-header">
+    <div class="step-eyebrow">Step 07 of 07</div>
+    <h1 class="step-title">Operations &amp; <em>Communication</em></h1>
+    <p class="step-subtitle">Last one. Tell us how you want to work together — approvals, communication style, account access, and anything else before we kick things off.</p>
+    <div class="ornament-line"><span>✦</span></div>
+  </div>
+
+  <div class="field-group">
+    <div class="section-block">
+      <div class="section-block-title">Primary Point of Contact</div>
+      <div class="field-group">
+        <div class="grid-2">
+          <div class="field"><label>Full Name</label><input type="text" placeholder="Your name" /></div>
+          <div class="field"><label>Title / Role</label><input type="text" placeholder="Owner, GM, Marketing Lead…" /></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Best Phone / Text</label><input type="tel" placeholder="(   )  — " /></div>
+          <div class="field"><label>Best Email</label><input type="email" placeholder="your@email.com" /></div>
+        </div>
+        <div class="field">
+          <label>Secondary Contact (if applicable)</label>
+          <input type="text" placeholder="Name, role, and best number or email" />
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Preferred communication channel</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="comms" /><div class="check-text"><span class="check-title">Text / SMS — quick and direct</span></div></label>
+        <label class="check-item"><input type="radio" name="comms" /><div class="check-text"><span class="check-title">Email — formal approvals and documentation</span></div></label>
+        <label class="check-item"><input type="radio" name="comms" /><div class="check-text"><span class="check-title">Phone calls — prefer talking things through</span></div></label>
+        <label class="check-item"><input type="radio" name="comms" /><div class="check-text"><span class="check-title">Slack or project management tool</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Content approval workflow</label>
+      <p class="hint">How do you want to review content before it goes live?</p>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="approval" /><div class="check-text"><span class="check-title">Weekly batch review</span><span class="check-desc">We send a full week of content every Monday for your sign-off before anything goes live.</span></div></label>
+        <label class="check-item"><input type="radio" name="approval" /><div class="check-text"><span class="check-title">Post-by-post approval</span><span class="check-desc">Every individual piece comes to you for review and approval before posting.</span></div></label>
+        <label class="check-item"><input type="radio" name="approval" /><div class="check-text"><span class="check-title">Trust Revyn's judgment</span><span class="check-desc">Post freely within agreed guidelines — just send me a notification after it goes up.</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>How much lead time do you need to review content?</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="lead" /><div class="check-text"><span class="check-title">24 hours is fine</span></div></label>
+        <label class="check-item"><input type="radio" name="lead" /><div class="check-text"><span class="check-title">48 hours preferred</span></div></label>
+        <label class="check-item"><input type="radio" name="lead" /><div class="check-text"><span class="check-title">72+ hours — I need time to review carefully</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Social account access</label>
+      <p class="hint">For us to post and manage your accounts, we'll need editor/admin access. Where are you on this?</p>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="access" /><div class="check-text"><span class="check-title">Ready — I can add Revyn as admin/editor on all platforms now</span></div></label>
+        <label class="check-item"><input type="radio" name="access" /><div class="check-text"><span class="check-title">Mostly — I have most logins, need to find a couple</span></div></label>
+        <label class="check-item"><input type="radio" name="access" /><div class="check-text"><span class="check-title">Need help — let's do this together at kickoff</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Have you worked with a social media manager or agency before?</label>
+      <div class="check-list">
+        <label class="check-item"><input type="radio" name="prev_agency" /><div class="check-text"><span class="check-title">Yes — had a great experience</span></div></label>
+        <label class="check-item"><input type="radio" name="prev_agency" /><div class="check-text"><span class="check-title">Yes — had a bad experience (tell us what went wrong)</span></div></label>
+        <label class="check-item"><input type="radio" name="prev_agency" /><div class="check-text"><span class="check-title">No — this is our first time outsourcing social</span></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>If you've worked with an agency before, what went wrong?</label>
+      <p class="hint">Content felt generic, slow turnaround, no communication — be honest. We'd rather know up front.</p>
+      <textarea placeholder="The content felt like it could have been for any business. They didn't understand our voice. Posts were always late. No strategy, just execution…" style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>What does a successful working relationship look like to you?</label>
+      <p class="hint">Communication style, responsiveness, reporting cadence, what would make you feel truly taken care of.</p>
+      <textarea placeholder="Weekly check-in call, monthly report with real numbers, proactive communication when something's performing — I don't want to chase anyone…" style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Are there any staff members we should meet or involve in content?</label>
+      <input type="text" placeholder="Manager names, bartenders, anyone who might appear on camera or approve content…" />
+    </div>
+
+    <div class="field">
+      <label>Anything else we should know before we begin?</label>
+      <p class="hint">Context, timing, upcoming announcements, sensitivities, questions about the process — open floor.</p>
+      <textarea placeholder="We're planning a big launch event next month that we want to build anticipation around. We have a remodel happening in the back room so avoid that area for now. Our members tend to be private and wouldn't love surprise content without knowing…" style="min-height:100px;"></textarea>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+    <button class="btn btn-submit" onclick="submitForm()">Submit Onboarding ✦</button>
+  </div>
+</section>
+
+<!-- ── THANK YOU ──────────────────────────── -->
+<div id="thankyou">
+  <div class="ty-glyph">✦</div>
+  <h2 class="ty-title">You're all set.</h2>
+  <p class="ty-body">
+    Thank you for completing the Side Street Lounge onboarding questionnaire.
+    Revyn Marketing will review your responses and be in touch within 24–48 hours
+    to schedule your strategy kickoff and content calendar review.
+  </p>
+  <div class="ty-brand">Revyn Marketing · revynmarketingagency.com</div>
+</div>
+
+</div><!-- /container -->
 </main>
 
 <script>
   let current = 1;
   const total = 7;
+  const stepNames = [
+    '', // 0 unused
+    'Your Business',
+    'Brand Identity',
+    'Your Audience',
+    'Content Style',
+    'Social Media Goals',
+    'Membership & Offerings',
+    'Operations & Communication'
+  ];
+
+  function updateProgress(n) {
+    document.getElementById('stepLabel').textContent = stepNames[n];
+    document.getElementById('stepCount').textContent = 'Step ' + n + ' of ' + total;
+    document.getElementById('progressPct').textContent = n + ' / ' + total;
+    const pct = (n / total * 100).toFixed(2);
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
 
   function showStep(n) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.step-tab').forEach(t => {
-      const sn = parseInt(t.dataset.step);
-      t.classList.remove('active','done');
-      if (sn === n) t.classList.add('active');
-      if (sn < n)  t.classList.add('done');
-    });
     const el = document.getElementById('step-' + n);
-    if (el) el.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (el) {
+      el.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    updateProgress(n);
   }
 
   function nextStep() {
@@ -1223,23 +1364,14 @@
   function submitForm() {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('thankyou').classList.add('active');
+    // Hide progress bar on thank you
+    document.querySelector('.progress-wrap').style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function toggleCard(el) {
-    el.classList.toggle('selected');
+    el.classList.toggle('on');
   }
-
-  // Tab click navigation
-  document.querySelectorAll('.step-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const n = parseInt(tab.dataset.step);
-      if (n <= current || n === current + 1) {
-        current = n;
-        showStep(n);
-      }
-    });
-  });
 </script>
 </body>
 </html>
